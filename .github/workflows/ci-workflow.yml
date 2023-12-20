@@ -1,0 +1,79 @@
+name: CI workflow for My Radar
+
+on: [push, pull_request]
+
+env:
+  MIRROR_URL: git@github.com:EpitechPromo2028/B-MUL-100-PAR-1-1-myradar-yanis.kernoua.git
+  EXECUTABLES: ./my_radar
+
+jobs:
+  check_coding_style:
+    name: Check coding style
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    env:
+      REPORT_FILENAME: coding-style-reports.log
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Checking coding-style
+        run: |
+          check.sh $(pwd) $(pwd)
+          cat $REPORT_FILENAME | while read LINE; do
+              TYPE=$(echo $LINE | cut -d ':' -f 3 | tr -d ' ')
+              FILE=$(echo $LINE | cut -d ':' -f 1)
+              AT=$(echo $LINE | cut -d ':' -f 2)
+              ERROR=$(echo $LINE | cut -d ':' -f 4)
+              echo "::error file=$FILE,line=$AT,title=$TYPE coding style error::$ERROR"
+          done
+          if [[ -s $REPORT_FILENAME ]]; then
+            exit 1
+          fi
+
+  build_and_test:
+    name: Build, test and memory check
+    needs: [check_coding_style]
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker:latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Building project
+        timeout-minutes: 2
+        run: make
+
+      - name: Check executable
+        run: |
+            if [[ ! -f $EXECUTABLES ]]; then
+                echo "::error file=$EXECUTABLES::Executable not found"
+                exit 1
+            fi
+
+      - name: Launch unit tests
+        timeout-minutes: 2
+        run: make tests_run
+
+  push_to_mirror:
+    name: Push to mirror
+    needs: [build_and_test]
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to mirror
+        uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: ${{ env.MIRROR_URL }}
+          ssh_private_key: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
