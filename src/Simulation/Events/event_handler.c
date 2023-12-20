@@ -5,9 +5,9 @@
 ** Event handler
 */
 
-#include "Game/entity.h"
-#include "Game/game.h"
-#include "Game/world.h"
+#include "Simulation/entity.h"
+#include "Simulation/simulation.h"
+#include "Simulation/world.h"
 #include "Screen/screen.h"
 #include <SFML/Audio/Sound.h>
 #include <SFML/Graphics/Rect.h>
@@ -26,16 +26,16 @@ static void handle_resize(sfRenderWindow *window)
             (sfVector2u){DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT});
 }
 
-void event_handler(game_t *game)
+void event_handler(simulation_t *sim)
 {
-    sfEvent event = game->game_event;
+    sfEvent event = sim->event;
 
     switch (event.type) {
     case sfEvtClosed:
-        sfRenderWindow_close(game->screen->window);
+        sfRenderWindow_close(sim->screen->window);
         break;
     case sfEvtResized:
-        handle_resize(game->screen->window);
+        handle_resize(sim->screen->window);
         break;
     default:
         break;

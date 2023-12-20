@@ -6,6 +6,6 @@
 */
 
 #pragma once
-#include "Game/game.h"
+#include "Simulation/simulation.h"
 
-void event_handler(game_t *game);
+void event_handler(simulation_t *simulation);

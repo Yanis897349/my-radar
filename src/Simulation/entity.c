@@ -5,7 +5,7 @@
 ** Entity management
 */
 
-#include "Game/entity.h"
+#include "Simulation/entity.h"
 #include <SFML/Audio/Music.h>
 #include <SFML/Audio/Sound.h>
 #include <SFML/Audio/SoundBuffer.h>

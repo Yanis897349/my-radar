@@ -5,9 +5,9 @@
 ** World management
 */
 
-#include "Game/world.h"
-#include "Game/entity.h"
-#include "Game/game.h"
+#include "Simulation/world.h"
+#include "Simulation/entity.h"
+#include "Simulation/simulation.h"
 #include "include/my_std.h"
 #include "include/my_strings.h"
 #include <SFML/Audio/Music.h>

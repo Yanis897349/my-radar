@@ -16,10 +16,10 @@ RM = rm -f
 
 MAIN_SRC = ./src/main.c
 SRC = ./src/Screen/screen.c \
-	./src/Game/game.c \
-	./src/Game/world.c \
-	./src/Game/entity.c \
-	./src/Game/Events/event_handler.c
+	./src/Simulation/simulation.c \
+	./src/Simulation/world.c \
+	./src/Simulation/entity.c \
+	./src/Simulation/Events/event_handler.c
 SRC_TEST = ./tests/test.c
 OBJS = $(MAIN_SRC:.c=.o) $(SRC:.c=.o)
 TEST_OBJS = $(SRC:.c=.o) $(SRC_TEST:.c=.o)

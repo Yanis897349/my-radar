@@ -5,7 +5,7 @@
 ** Air traffic simulation panel
 */
 
-#include "Game/game.h"
+#include "Simulation/simulation.h"
 #include "include/my_std.h"
 #include "include/my_strings.h"
 #include "include/my_io.h"
@@ -18,11 +18,14 @@ static void display_help(void)
 
 int main(int ac, char **av)
 {
-    if (ac == 2 && my_strcmp(av[1], "-h") == 0) {
+    if (ac != 2) {
+        return EXIT_ERROR;
+    }
+    if (my_strcmp(av[1], "-h") == 0) {
         display_help();
         return EXIT_SUCCESS;
     }
-    if (run_game() == EXIT_FAILURE)
+    if (run_simulation() == EXIT_FAILURE)
         return EXIT_ERROR;
     return EXIT_SUCCESS;
 }

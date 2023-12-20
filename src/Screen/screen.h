@@ -18,4 +18,4 @@ typedef struct screen_s {
     sfVideoMode window_mode;
 } screen_t;
 
-screen_t *create_game_screen(int window_width, int window_height);
+screen_t *create_sim_screen(int window_width, int window_height);

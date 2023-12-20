@@ -6,7 +6,7 @@
 */
 
 #pragma once
-#include "Game/entity.h"
+#include "Simulation/entity.h"
 #include <SFML/Graphics/Types.h>
 #define WORLD_BACKGROUND_PATH "src/assets/world/background.jpg"
 
