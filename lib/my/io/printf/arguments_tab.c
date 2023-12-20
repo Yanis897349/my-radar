@@ -33,7 +33,7 @@ char *get_type(char const *format, int tab_size)
 
     for (int i = 0; format[i] != '\0'; i++) {
         if (is_real_flag(format, i)) {
-            type[count_arg] = format[i  + 1];
+            type[count_arg] = format[i + 1];
             count_arg++;
         }
         if (format[i] == '*' &&

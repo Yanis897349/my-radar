@@ -88,10 +88,21 @@ STRINGS_FUNCS := ./strings/my_revstr.c \
 				 ./strings/my_strdup.c \
 				 ./strings/my_strcpy.c \
 				 ./strings/my_memcpy.c \
-				 ./strings/my_memset.c
+				 ./strings/my_memset.c \
+				 ./strings/buffer_to_array.c \
+				 ./strings/file_to_buffer.c \
+				 ./strings/my_array_len.c
 
 STD_FUNCS = ./std/my_realloc.c \
-	./std/my_freearray.c
+	./std/my_freearray.c \
+	./std/null_function.c
+
+LIST_FUNCS = ./list/list_create.c \
+	./list/list_destroy.c \
+	./list/list_add.c \
+	./list/list_remove.c \
+	./list/list_size.c \
+	./list/list_get.c
 
 SRC := $(CTYPE_FUNCS) \
 	   $(MATH_FUNCS) \
@@ -99,7 +110,8 @@ SRC := $(CTYPE_FUNCS) \
 	   $(IO_FUNCS) \
 	   $(IO_FUNCS_PRINTF) \
 	   $(STRINGS_FUNCS) \
-	   $(STD_FUNCS)
+	   $(STD_FUNCS) \
+	   $(LIST_FUNCS)
 CFLAGS := -Wall -Wextra -Werror -I .
 OBJ := $(SRC:.c=.o)
 LIB_DIR := ../../
@@ -122,6 +134,7 @@ $(NAME): $(OBJ)
 	@cp -r ./strings/my_strings.h $(INCLUDE_DIR)
 	@cp -r ./io/printf/my_printf.h $(INCLUDE_DIR)
 	@cp -r ./std/my_std.h $(INCLUDE_DIR)
+	@cp -r ./list/my_list.h $(INCLUDE_DIR)
 
 clean:
 	@rm -f $(OBJ)

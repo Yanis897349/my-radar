@@ -8,7 +8,6 @@
 
 #ifndef MY_STRINGS_H_
     #define MY_STRINGS_H_
-    #define BASE_10 "0123456789"
 char *my_putnbr_base(int nbr, const char *base, char *str);
 char *my_putnbr_base_unsigned(unsigned int n, const char *base);
 char *my_putnbr_base_int64(long int n, const char *base);
@@ -37,4 +36,7 @@ char **my_str_to_word_array(const char *str);
 char *my_strupcase(char *str);
 void *my_memcpy(void *dest, const void *src, size_t n);
 void *my_memset(void *pointer, int value, size_t count);
+char **buffer_to_array(char *buffer, char delimiter);
+char *file_to_buffer(char *filepath);
+int my_array_len(char **array);
 #endif /* MY_STRINGS_H_ */

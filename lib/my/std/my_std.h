@@ -11,3 +11,4 @@
 
 void *my_realloc(void *ptr, size_t old_size, size_t new_size);
 void my_freearray(char **array);
+void null_function(void *data);
