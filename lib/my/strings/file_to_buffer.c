@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-char *file_to_buffer(char *filepath)
+char *file_to_buffer(const char *filepath)
 {
     int fd = open(filepath, O_RDONLY);
     struct stat st;
