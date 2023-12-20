@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2023
-** My Hunter
+** My Radar
 ** File description:
 ** World management
 */
 
 #include "Simulation/world.h"
-#include "Simulation/entity.h"
+#include "Simulation/tower.h"
 #include "Simulation/simulation.h"
 #include "include/my_std.h"
 #include "include/my_strings.h"
@@ -34,17 +34,17 @@ static int world_set_background(world_t *world, char *texture_path)
     return EXIT_SUCCESS;
 }
 
-int add_entity_to_world(world_t *world, entity_t *entity)
+int add_tower_to_world(world_t *world, tower_t *tower)
 {
-    int old_entities_size = world->entities_count * sizeof(entity_t);
-    int new_entities_size = old_entities_size + sizeof(entity_t);
+    int old_towers_size = world->towers_count * sizeof(tower_t);
+    int new_towers_size = old_towers_size + sizeof(tower_t);
 
-    world->entities = my_realloc(world->entities, old_entities_size,
-        new_entities_size);
-    if (world->entities == NULL)
+    world->towers = my_realloc(world->towers, old_towers_size,
+        new_towers_size);
+    if (world->towers == NULL)
         return EXIT_FAILURE;
-    world->entities[world->entities_count] = entity;
-    world->entities_count++;
+    world->towers[world->towers_count] = tower;
+    world->towers_count++;
     return EXIT_SUCCESS;
 }
 
@@ -56,8 +56,8 @@ world_t *create_world(void)
         return NULL;
     world->background_sprite = NULL;
     world->background_texture = NULL;
-    world->entities = NULL;
-    world->entities_count = 0;
+    world->towers = NULL;
+    world->towers_count = 0;
     if (world_set_background(world, WORLD_BACKGROUND_PATH) == EXIT_FAILURE)
         return NULL;
     return world;

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** My Hunter
+** My Radar
 ** File description:
 ** Event handler
 */

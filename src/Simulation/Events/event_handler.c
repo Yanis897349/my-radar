@@ -1,11 +1,10 @@
 /*
 ** EPITECH PROJECT, 2023
-** My Hunter
+** My Radar
 ** File description:
 ** Event handler
 */
 
-#include "Simulation/entity.h"
 #include "Simulation/simulation.h"
 #include "Simulation/world.h"
 #include "Screen/screen.h"

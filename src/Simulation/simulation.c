@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2023
-** My Hunter
+** My Radar
 ** File description:
 ** Simulation entry point
 */
 
 #include "Simulation/simulation.h"
-#include "Simulation/entity.h"
+#include "Simulation/tower.h"
 #include "Simulation/world.h"
 #include "Screen/screen.h"
 #include "Events/event_handler.h"
@@ -20,10 +20,9 @@ static int render_world(simulation_t *sim)
 {
     sfRenderWindow_drawSprite(sim->screen->window,
         sim->world->background_sprite, NULL);
-    for (uint i = 0; i < sim->world->entities_count; i++) {
-        update_entity(sim->world->entities[i], sim->screen->window);
+    for (uint i = 0; i < sim->world->towers_count; i++) {
         sfRenderWindow_drawSprite(sim->screen->window,
-            sim->world->entities[i]->sprite, NULL);
+            sim->world->towers[i]->sprite, NULL);
     }
     return EXIT_SUCCESS;
 }
@@ -51,10 +50,10 @@ static void destroy_simulation(simulation_t *sim)
     sfRenderWindow_destroy(sim->screen->window);
     sfSprite_destroy(sim->world->background_sprite);
     sfTexture_destroy(sim->world->background_texture);
-    for (uint i = 0; i < sim->world->entities_count; i++)
-        destroy_entity(sim->world->entities[i]);
+    for (uint i = 0; i < sim->world->towers_count; i++)
+        destroy_tower(sim->world->towers[i]);
     sfClock_destroy(sim->clock);
-    free(sim->world->entities);
+    free(sim->world->towers);
     free(sim->screen);
 }
 
