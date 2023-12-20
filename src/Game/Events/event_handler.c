@@ -11,6 +11,7 @@
 #include "Screen/screen.h"
 #include <SFML/Audio/Sound.h>
 #include <SFML/Graphics/Rect.h>
+#include <SFML/System/Vector2.h>
 #include <SFML/Window/Event.h>
 #include <SFML/Window/Mouse.h>
 #include <stdio.h>
@@ -18,8 +19,11 @@
 
 static void handle_resize(sfRenderWindow *window)
 {
-    sfRenderWindow_setSize(window,
-        (sfVector2u){DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT});
+    sfVector2u size = sfRenderWindow_getSize(window);
+
+    if (size.x != DEFAULT_WINDOW_WIDTH || size.y != DEFAULT_WINDOW_HEIGHT)
+        sfRenderWindow_setSize(window,
+            (sfVector2u){DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT});
 }
 
 void event_handler(game_t *game)
