@@ -29,20 +29,21 @@ static void tower_set_position(tower_t *tower, sfVector2f position)
 
 static int set_tower_sprite(tower_t *tower, sfVector2f position)
 {
-    sfVector2u texture_size;
-    int window_height = DEFAULT_WINDOW_HEIGHT;
-
     tower->texture =
         sfTexture_createFromFile(DEFAULT_TOWER_TEXTURE_PATH, NULL);
     if (tower->texture == NULL)
         return EXIT_FAILURE;
-    texture_size = sfTexture_getSize(tower->texture);
     tower->sprite = sfSprite_create();
     if (tower->sprite == NULL)
         return EXIT_FAILURE;
     sfSprite_setTexture(tower->sprite, tower->texture, sfTrue);
     tower_set_position(tower, position);
     return EXIT_SUCCESS;
+}
+
+static void set_tower_info(tower_t *tower, float control_area)
+{
+    tower->control_area = control_area;
 }
 
 void destroy_tower(tower_t *tower)
@@ -52,7 +53,7 @@ void destroy_tower(tower_t *tower)
     free(tower);
 }
 
-tower_t *create_tower(sfRenderWindow *window, sfVector2f position)
+tower_t *create_tower(sfVector2f position, float control_area)
 {
     tower_t *tower = malloc(sizeof(tower_t));
 
@@ -60,5 +61,6 @@ tower_t *create_tower(sfRenderWindow *window, sfVector2f position)
         return NULL;
     if (set_tower_sprite(tower, position) == EXIT_FAILURE)
         return NULL;
+    set_tower_info(tower, control_area);
     return tower;
 }

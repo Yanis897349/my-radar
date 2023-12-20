@@ -18,4 +18,4 @@ typedef struct tower_s {
 } tower_t;
 
 void destroy_tower(tower_t *tower);
-tower_t *create_tower(sfRenderWindow *window, sfVector2f position);
+tower_t *create_tower(sfVector2f position, float control_area);

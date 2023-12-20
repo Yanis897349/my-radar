@@ -19,14 +19,10 @@
 
 static int set_aircraft_sprite(aircraft_t *aircraft, sfVector2f position)
 {
-    sfVector2u texture_size;
-    int window_height = DEFAULT_WINDOW_HEIGHT;
-
     aircraft->texture =
         sfTexture_createFromFile(DEFAULT_AIRCRAFT_TEXTURE_PATH, NULL);
     if (aircraft->texture == NULL)
         return EXIT_FAILURE;
-    texture_size = sfTexture_getSize(aircraft->texture);
     aircraft->sprite = sfSprite_create();
     if (aircraft->sprite == NULL)
         return EXIT_FAILURE;

@@ -5,11 +5,17 @@
 ** Air traffic simulation panel
 */
 
+#include <stdlib.h>
+#include <stdio.h>
 #include "Simulation/simulation.h"
+#include "Simulation/tower.h"
+#include "Simulation/aircraft.h"
+#include "Parser/parser.h"
+#include "Parser/reader.h"
+#include "Simulation/tower.h"
 #include "include/my_std.h"
 #include "include/my_strings.h"
 #include "include/my_io.h"
-#include <stdlib.h>
 
 static void display_help(void)
 {

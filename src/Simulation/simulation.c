@@ -10,6 +10,7 @@
 #include "Simulation/world.h"
 #include "Screen/screen.h"
 #include "Events/event_handler.h"
+#include <SFML/Graphics/RenderWindow.h>
 #include <SFML/System/Clock.h>
 #include <SFML/Window/Window.h>
 #include <stdio.h>
@@ -29,7 +30,6 @@ static int render_world(simulation_t *sim)
 
 static int run_simulation_loop(simulation_t *sim)
 {
-    sim->clock = sfClock_create();
     while (sfRenderWindow_isOpen(sim->screen->window)) {
         while (sfRenderWindow_pollEvent(sim->screen->window,
             &sim->event))
@@ -48,9 +48,8 @@ static int run_simulation_loop(simulation_t *sim)
 static void destroy_simulation(simulation_t *sim)
 {
     destroy_world(sim->world);
+    destroy_screen(sim->screen);
     sfClock_destroy(sim->clock);
-    free(sim->world->towers);
-    free(sim->screen);
 }
 
 int run_simulation(void)
@@ -63,6 +62,9 @@ int run_simulation(void)
         return EXIT_FAILURE;
     simulation.world = create_world();
     if (simulation.world == NULL)
+        return EXIT_FAILURE;
+    simulation.clock = sfClock_create();
+    if (simulation.clock == NULL)
         return EXIT_FAILURE;
     if (run_simulation_loop(&simulation) == EXIT_FAILURE)
         return EXIT_FAILURE;
