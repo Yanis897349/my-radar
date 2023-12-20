@@ -18,4 +18,5 @@ typedef struct screen_s {
     sfVideoMode window_mode;
 } screen_t;
 
+void destroy_screen(screen_t *screen);
 screen_t *create_sim_screen(int window_width, int window_height);
