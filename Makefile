@@ -18,7 +18,8 @@ MAIN_SRC = ./src/main.c
 SRC = ./src/Screen/screen.c \
 	./src/Simulation/simulation.c \
 	./src/Simulation/world.c \
-	./src/Simulation/entity.c \
+	./src/Simulation/tower.c \
+	./src/Simulation/aircraft.c \
 	./src/Simulation/Events/event_handler.c
 SRC_TEST = ./tests/test.c
 OBJS = $(MAIN_SRC:.c=.o) $(SRC:.c=.o)
