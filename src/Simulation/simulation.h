@@ -1,22 +1,23 @@
 /*
 ** EPITECH PROJECT, 2023
-** My Hunter
+** My Radar
 ** File description:
-** Game entry point
+** Simulation entry point
 */
 
 #pragma once
 #include "Screen/screen.h"
-#include "Game/world.h"
+#include "Simulation/world.h"
 #include <SFML/Audio/Types.h>
 #include <SFML/Graphics.h>
 #include <SFML/Audio.h>
+#define MS_TO_SEC 1000000
 
-typedef struct game_s {
+typedef struct simulation_s {
     screen_t *screen;
     world_t *world;
-    sfEvent game_event;
-    sfClock *game_clock;
-} game_t;
+    sfClock *clock;
+    sfEvent event;
+} simulation_t;
 
-int run_game(void);
+int run_simulation(void);

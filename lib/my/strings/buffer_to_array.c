@@ -43,7 +43,7 @@ char **buffer_to_array(char *buffer, char delimiter)
     for (int i = 0; buffer[i] != '\0'; i++)
         if (buffer[i] == delimiter)
             line_count++;
-    board = malloc(sizeof(char *) * (line_count + 1));
+    board = malloc(sizeof(char *) * (line_count + 2));
     if (board == NULL)
         return NULL;
     token = my_strtok(buffer, delimiter);
@@ -53,6 +53,6 @@ char **buffer_to_array(char *buffer, char delimiter)
         line++;
         token = my_strtok(NULL, delimiter);
     }
-    board[line_count] = NULL;
+    board[line] = NULL;
     return board;
 }

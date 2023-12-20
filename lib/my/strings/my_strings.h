@@ -37,6 +37,6 @@ char *my_strupcase(char *str);
 void *my_memcpy(void *dest, const void *src, size_t n);
 void *my_memset(void *pointer, int value, size_t count);
 char **buffer_to_array(char *buffer, char delimiter);
-char *file_to_buffer(char *filepath);
+char *file_to_buffer(const char *filepath);
 int my_array_len(char **array);
 #endif /* MY_STRINGS_H_ */

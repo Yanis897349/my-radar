@@ -22,7 +22,13 @@ static int create_window(screen_t *screen)
     return EXIT_SUCCESS;
 }
 
-screen_t *create_game_screen(int window_width, int window_height)
+void destroy_screen(screen_t *screen)
+{
+    sfRenderWindow_destroy(screen->window);
+    free(screen);
+}
+
+screen_t *create_sim_screen(int window_width, int window_height)
 {
     screen_t *screen = malloc(sizeof(screen_t));
 
