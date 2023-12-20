@@ -20,7 +20,9 @@ SRC = ./src/Screen/screen.c \
 	./src/Simulation/world.c \
 	./src/Simulation/tower.c \
 	./src/Simulation/aircraft.c \
-	./src/Simulation/Events/event_handler.c
+	./src/Simulation/Events/event_handler.c \
+	./src/Parser/reader.c \
+	./src/Parser/parser.c
 SRC_TEST = ./tests/test.c
 OBJS = $(MAIN_SRC:.c=.o) $(SRC:.c=.o)
 TEST_OBJS = $(SRC:.c=.o) $(SRC_TEST:.c=.o)
