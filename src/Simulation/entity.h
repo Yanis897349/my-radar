@@ -28,7 +28,6 @@ typedef struct entity_s {
     sfTexture *texture;
     sfVector2f position;
     sfIntRect rect;
-    sfFloatRect hitbox;
 } entity_t;
 
 void entity_set_position(entity_t *entity, sfVector2f position,

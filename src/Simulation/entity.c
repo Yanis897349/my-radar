@@ -6,6 +6,7 @@
 */
 
 #include "Simulation/entity.h"
+#include "Screen/screen.h"
 #include <SFML/Audio/Music.h>
 #include <SFML/Audio/Sound.h>
 #include <SFML/Audio/SoundBuffer.h>
@@ -29,7 +30,7 @@ static int set_entity_sprite(entity_t *entity, sfRenderWindow *window,
     char *texture_path)
 {
     sfVector2u texture_size;
-    int window_height = sfRenderWindow_getSize(window).y;
+    int window_height = DEFAULT_WINDOW_HEIGHT;
     sfVector2f entity_position = {0, 0};
 
     entity->texture = sfTexture_createFromFile(texture_path, NULL);
@@ -45,14 +46,13 @@ static int set_entity_sprite(entity_t *entity, sfRenderWindow *window,
         return EXIT_FAILURE;
     sfSprite_setTexture(entity->sprite, entity->texture, sfTrue);
     entity_set_position(entity, entity_position, window);
-    entity->hitbox = sfSprite_getGlobalBounds(entity->sprite);
     return EXIT_SUCCESS;
 }
 
 void entity_set_position(entity_t *entity, sfVector2f position,
     sfRenderWindow *window)
 {
-    double window_width = sfRenderWindow_getSize(window).x;
+    double window_width = DEFAULT_WINDOW_WIDTH;
 
     if (position.x > window_width)
         position = (sfVector2f) {0, position.y};
@@ -80,7 +80,6 @@ void update_entity(entity_t *entity, sfRenderWindow *window)
         entity->position.x += MOVE_OFFSET;
         entity_set_position(entity, entity->position, window);
     }
-    entity->hitbox = sfSprite_getGlobalBounds(entity->sprite);
 }
 
 void destroy_entity(entity_t *entity)
