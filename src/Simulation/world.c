@@ -34,6 +34,33 @@ static int world_set_background(world_t *world, char *texture_path)
     return EXIT_SUCCESS;
 }
 
+void destroy_world(world_t *world)
+{
+    sfSprite_destroy(world->background_sprite);
+    sfTexture_destroy(world->background_texture);
+    for (uint i = 0; i < world->towers_count; i++)
+        destroy_tower(world->towers[i]);
+    for (uint i = 0; i < world->aircrafts_count; i++)
+        destroy_aircraft(world->aircrafts[i]);
+    free(world->towers);
+    free(world->aircrafts);
+    free(world);
+}
+
+int add_aircraft_to_world(world_t *world, aircraft_t *aircraft)
+{
+    int old_aircrafts_size = world->aircrafts_count * sizeof(aircraft_t);
+    int new_aircrafts_size = old_aircrafts_size + sizeof(aircraft_t);
+
+    world->aircrafts = my_realloc(world->aircrafts, old_aircrafts_size,
+        new_aircrafts_size);
+    if (world->aircrafts == NULL)
+        return EXIT_FAILURE;
+    world->aircrafts[world->aircrafts_count] = aircraft;
+    world->aircrafts_count++;
+    return EXIT_SUCCESS;
+}
+
 int add_tower_to_world(world_t *world, tower_t *tower)
 {
     int old_towers_size = world->towers_count * sizeof(tower_t);
@@ -58,6 +85,8 @@ world_t *create_world(void)
     world->background_texture = NULL;
     world->towers = NULL;
     world->towers_count = 0;
+    world->aircrafts = NULL;
+    world->aircrafts_count = 0;
     if (world_set_background(world, WORLD_BACKGROUND_PATH) == EXIT_FAILURE)
         return NULL;
     return world;

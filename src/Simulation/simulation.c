@@ -47,11 +47,7 @@ static int run_simulation_loop(simulation_t *sim)
 
 static void destroy_simulation(simulation_t *sim)
 {
-    sfRenderWindow_destroy(sim->screen->window);
-    sfSprite_destroy(sim->world->background_sprite);
-    sfTexture_destroy(sim->world->background_texture);
-    for (uint i = 0; i < sim->world->towers_count; i++)
-        destroy_tower(sim->world->towers[i]);
+    destroy_world(sim->world);
     sfClock_destroy(sim->clock);
     free(sim->world->towers);
     free(sim->screen);
