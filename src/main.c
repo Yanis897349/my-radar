@@ -5,6 +5,8 @@
 ** Air traffic simulation panel
 */
 
+#include "Game/game.h"
+#include "include/my_std.h"
 #include "include/my_strings.h"
 #include "include/my_io.h"
 #include <stdlib.h>
@@ -20,5 +22,7 @@ int main(int ac, char **av)
         display_help();
         return EXIT_SUCCESS;
     }
+    if (run_game() == EXIT_FAILURE)
+        return EXIT_ERROR;
     return EXIT_SUCCESS;
 }
