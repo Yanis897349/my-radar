@@ -68,8 +68,6 @@ static tower_t *parse_tower(char *line)
 
     if (tower_info == NULL)
         return NULL;
-    for (int i = 0; tower_info[i] != NULL; i++)
-        printf("%s\n", tower_info[i]);
     position.x = my_getnbr(tower_info[1]);
     position.y = my_getnbr(tower_info[2]);
     radius = my_getnbr(tower_info[3]);
