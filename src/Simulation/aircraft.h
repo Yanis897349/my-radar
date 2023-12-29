@@ -8,11 +8,13 @@
 #pragma once
 #include <SFML/Audio/Types.h>
 #include <SFML/Graphics.h>
+#include <SFML/Graphics/Types.h>
 #define DEFAULT_AIRCRAFT_TEXTURE_PATH "src/assets/entity/plane.png"
 
 typedef struct aircraft_s {
     sfSprite *sprite;
     sfTexture *texture;
+    sfRectangleShape *hitbox;
     sfVector2f departure;
     sfVector2f arrival;
     sfVector2f position;

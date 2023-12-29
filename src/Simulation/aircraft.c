@@ -11,6 +11,7 @@
 #include <SFML/Audio/Sound.h>
 #include <SFML/Audio/SoundBuffer.h>
 #include <SFML/Audio/Types.h>
+#include <SFML/Graphics/RectangleShape.h>
 #include <SFML/Graphics/Types.h>
 #include <SFML/System/Clock.h>
 #include <SFML/System/Vector2.h>
@@ -55,6 +56,10 @@ aircraft_t *create_aircraft(sfVector2f departure, sfVector2f arrival,
 
     if (aircraft == NULL)
         return NULL;
+    aircraft->hitbox = sfRectangleShape_create();
+    if (aircraft->hitbox == NULL)
+        return NULL;
+    sfRectangleShape_setSize(aircraft->hitbox, (sfVector2f) {20, 20});
     aircraft->arrival = arrival;
     aircraft->departure = departure;
     aircraft->speed = speed;
