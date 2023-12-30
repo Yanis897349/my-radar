@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2023
-** My Hunter
+** My Radar
 ** File description:
 ** Window management
 */
 
 #pragma once
 #include <SFML/Graphics.h>
-#define WINDOW_NAME "My Hunter"
+#define WINDOW_NAME "My Radar"
 #define DEFAULT_WINDOW_WIDTH 1920
 #define DEFAULT_WINDOW_HEIGHT 1080
 #define DEFAULT_WINDOW_PIXELS 32
