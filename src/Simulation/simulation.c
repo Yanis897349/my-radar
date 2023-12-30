@@ -7,11 +7,13 @@
 
 #include "Simulation/simulation.h"
 #include "Simulation/aircraft.h"
+#include "Simulation/quadtree.h"
 #include "Simulation/tower.h"
 #include "Simulation/world.h"
 #include "Screen/screen.h"
 #include "Events/event_handler.h"
 #include <SFML/Graphics/RenderWindow.h>
+#include <SFML/Graphics/Types.h>
 #include <SFML/System/Clock.h>
 #include <SFML/Window/Window.h>
 #include <stdio.h>
@@ -25,7 +27,11 @@ static int render_world(simulation_t *sim)
     for (uint i = 0; i < sim->world->towers_count; i++) {
         sfRenderWindow_drawSprite(sim->screen->window,
             sim->world->towers[i]->sprite, NULL);
+        sfRenderWindow_drawCircleShape(sim->screen->window,
+            sim->world->towers[i]->circle_area, NULL);
     }
+    for (uint i = 0; i < 4; i++)
+        render_aircrafts(sim, sim->world->corners[i]);
     return EXIT_SUCCESS;
 }
 

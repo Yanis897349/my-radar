@@ -58,8 +58,10 @@ void destroy_world(world_t *world)
 {
     sfSprite_destroy(world->background_sprite);
     sfTexture_destroy(world->background_texture);
+    for (uint i = 0; i < world->towers_count; i++)
+        destroy_tower(world->towers[i]);
     free(world->towers);
-    for (uint i = 0; world->corners[i] != NULL; i++)
+    for (uint i = 0; i < 4; i++)
         destroy_corner(world->corners[i]);
     free(world);
 }
