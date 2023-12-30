@@ -20,4 +20,4 @@ typedef struct simulation_s {
     sfEvent event;
 } simulation_t;
 
-int run_simulation(void);
+int run_simulation(tower_t **towers, aircraft_t **aircrafts);

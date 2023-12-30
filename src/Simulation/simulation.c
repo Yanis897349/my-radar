@@ -6,6 +6,7 @@
 */
 
 #include "Simulation/simulation.h"
+#include "Simulation/aircraft.h"
 #include "Simulation/tower.h"
 #include "Simulation/world.h"
 #include "Screen/screen.h"
@@ -52,7 +53,7 @@ static void destroy_simulation(simulation_t *sim)
     sfClock_destroy(sim->clock);
 }
 
-int run_simulation(void)
+int run_simulation(tower_t **towers, aircraft_t **aircrafts)
 {
     simulation_t simulation;
 
@@ -60,7 +61,7 @@ int run_simulation(void)
         DEFAULT_WINDOW_HEIGHT);
     if (simulation.screen == NULL)
         return EXIT_FAILURE;
-    simulation.world = create_world();
+    simulation.world = create_world(towers, aircrafts);
     if (simulation.world == NULL)
         return EXIT_FAILURE;
     simulation.clock = sfClock_create();
