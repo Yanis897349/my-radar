@@ -15,7 +15,7 @@
 static int create_window(screen_t *screen)
 {
     screen->window = sfRenderWindow_create(
-        screen->window_mode, WINDOW_NAME, sfResize | sfClose, NULL);
+        screen->window_mode, WINDOW_NAME, sfClose, NULL);
     if (screen->window == NULL)
         return EXIT_FAILURE;
     sfRenderWindow_setFramerateLimit(screen->window, WINDOW_FPS_LIMIT);
