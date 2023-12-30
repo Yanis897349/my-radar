@@ -40,5 +40,6 @@ int main(int ac, char **av)
     towers = parse_tower_from_script(script_content);
     if (run_simulation(towers, aircrafts) == EXIT_FAILURE)
         return EXIT_ERROR;
+    my_freearray(script_content);
     return EXIT_SUCCESS;
 }
