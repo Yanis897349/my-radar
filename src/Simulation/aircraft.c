@@ -11,6 +11,7 @@
 #include <SFML/Audio/Sound.h>
 #include <SFML/Audio/SoundBuffer.h>
 #include <SFML/Audio/Types.h>
+#include <SFML/Graphics/Color.h>
 #include <SFML/Graphics/RectangleShape.h>
 #include <SFML/Graphics/Types.h>
 #include <SFML/System/Clock.h>
@@ -28,6 +29,7 @@ static int set_aircraft_sprite(aircraft_t *aircraft, sfVector2f position)
     if (aircraft->sprite == NULL)
         return EXIT_FAILURE;
     sfSprite_setTexture(aircraft->sprite, aircraft->texture, sfTrue);
+    sfSprite_setScale(aircraft->sprite, (sfVector2f) {0.08, 0.08});
     aircraft_set_position(aircraft, position);
     return EXIT_SUCCESS;
 }
@@ -46,6 +48,7 @@ void destroy_aircraft(aircraft_t *aircraft)
 {
     sfSprite_destroy(aircraft->sprite);
     sfTexture_destroy(aircraft->texture);
+    sfRectangleShape_destroy(aircraft->hitbox);
     free(aircraft);
 }
 
@@ -59,6 +62,10 @@ aircraft_t *create_aircraft(sfVector2f departure, sfVector2f arrival,
     aircraft->hitbox = sfRectangleShape_create();
     if (aircraft->hitbox == NULL)
         return NULL;
+    sfRectangleShape_setPosition(aircraft->hitbox, departure);
+    sfRectangleShape_setFillColor(aircraft->hitbox, sfTransparent);
+    sfRectangleShape_setOutlineColor(aircraft->hitbox, sfBlue);
+    sfRectangleShape_setOutlineThickness(aircraft->hitbox, 2);
     sfRectangleShape_setSize(aircraft->hitbox, (sfVector2f) {20, 20});
     aircraft->arrival = arrival;
     aircraft->departure = departure;
