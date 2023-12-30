@@ -7,8 +7,11 @@
 
 #include "Simulation/quadtree.h"
 #include "Simulation/aircraft.h"
+#include "Simulation/simulation.h"
 #include "Simulation/world.h"
 #include "include/my_std.h"
+#include <SFML/Graphics/RenderWindow.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
 
@@ -96,6 +99,23 @@ static void dispatch_aircraft_to_corner_if_in_bounds(aircraft_t *aircraft,
     }
 }
 
+void render_aircrafts(simulation_t *sim, corner_t *corner)
+{
+    aircraft_t *aircraft = NULL;
+
+    for (uint i = 0; i < corner->aircrafts_count; i++) {
+        aircraft = corner->aircrafts[i];
+        sfRenderWindow_drawSprite(sim->screen->window,
+            aircraft->sprite, NULL);
+        sfRenderWindow_drawRectangleShape(sim->screen->window,
+            aircraft->hitbox, NULL);
+    }
+    for (uint i = 0; i < 4; i++) {
+        if (corner->corners[i] != NULL)
+            render_aircrafts(sim, corner->corners[i]);
+    }
+}
+
 corner_t *create_corner(int_rect_t bounds)
 {
     corner_t *corner = malloc(sizeof(corner_t));
@@ -112,12 +132,16 @@ corner_t *create_corner(int_rect_t bounds)
 
 void destroy_corner(corner_t *corner)
 {
-    for (uint i = 0; i < corner->aircrafts_count; i++)
+    if (corner == NULL) {
+        return;
+    }
+    for (uint i = 0; i < corner->aircrafts_count; i++) {
         destroy_aircraft(corner->aircrafts[i]);
+    }
     free(corner->aircrafts);
-    for (uint i = 0; corner->corners[i] != NULL; i++)
+    for (uint i = 0; i < 4; i++) {
         destroy_corner(corner->corners[i]);
-    free(corner->corners);
+    }
     free(corner);
 }
 
