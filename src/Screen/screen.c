@@ -10,12 +10,13 @@
 #include <SFML/Graphics/RenderWindow.h>
 #include <SFML/Graphics/Types.h>
 #include <SFML/Window/Types.h>
+#include <SFML/Window/Window.h>
 #include <stdlib.h>
 
 static int create_window(screen_t *screen)
 {
     screen->window = sfRenderWindow_create(
-        screen->window_mode, WINDOW_NAME, sfResize | sfClose, NULL);
+        screen->window_mode, WINDOW_NAME, sfClose | sfResize, NULL);
     if (screen->window == NULL)
         return EXIT_FAILURE;
     sfRenderWindow_setFramerateLimit(screen->window, WINDOW_FPS_LIMIT);

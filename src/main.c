@@ -24,6 +24,10 @@ static void display_help(void)
 
 int main(int ac, char **av)
 {
+    char **script_content = NULL;
+    aircraft_t **aircrafts = NULL;
+    tower_t **towers = NULL;
+
     if (ac != 2) {
         return EXIT_ERROR;
     }
@@ -31,7 +35,11 @@ int main(int ac, char **av)
         display_help();
         return EXIT_SUCCESS;
     }
-    if (run_simulation() == EXIT_FAILURE)
+    script_content = parse_script(av[1]);
+    aircrafts = parse_aircraft_from_script(script_content);
+    towers = parse_tower_from_script(script_content);
+    if (run_simulation(towers, aircrafts) == EXIT_FAILURE)
         return EXIT_ERROR;
+    my_freearray(script_content);
     return EXIT_SUCCESS;
 }
