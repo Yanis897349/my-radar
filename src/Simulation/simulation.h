@@ -17,6 +17,7 @@ typedef struct simulation_s {
     screen_t *screen;
     world_t *world;
     sfClock *clock;
+    sfClock *delay_clock;
     sfEvent event;
 } simulation_t;
 

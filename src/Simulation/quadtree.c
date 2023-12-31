@@ -105,15 +105,22 @@ void render_aircrafts(simulation_t *sim, corner_t *corner)
 
     for (uint i = 0; i < corner->aircrafts_count; i++) {
         aircraft = corner->aircrafts[i];
+        if (aircraft->delay_before_takeoff > 0) {
+            aircraft->delay_before_takeoff -=
+            sfClock_getElapsedTime(sim->delay_clock).microseconds / MS_TO_SEC;
+            continue;
+        }
+        if (aircraft->is_landed || aircraft->is_crashed)
+            continue;
         sfRenderWindow_drawSprite(sim->screen->window,
             aircraft->sprite, NULL);
         sfRenderWindow_drawRectangleShape(sim->screen->window,
             aircraft->hitbox, NULL);
+        aircraft_move(aircraft);
     }
-    for (uint i = 0; i < 4; i++) {
+    for (uint i = 0; i < 4; i++)
         if (corner->corners[i] != NULL)
             render_aircrafts(sim, corner->corners[i]);
-    }
 }
 
 corner_t *create_corner(int_rect_t bounds)

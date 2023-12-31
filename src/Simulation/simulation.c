@@ -41,8 +41,8 @@ static int run_simulation_loop(simulation_t *sim)
         while (sfRenderWindow_pollEvent(sim->screen->window,
             &sim->event))
             event_handler(sim);
-        if (sfClock_getElapsedTime(sim->clock).microseconds >
-            MS_TO_SEC / WINDOW_FPS_LIMIT) {
+        if (sfClock_getElapsedTime(sim->clock).microseconds
+            >= MS_TO_SEC / 60) {
             sfClock_restart(sim->clock);
             sfRenderWindow_clear(sim->screen->window, sfBlack);
             render_world(sim);
@@ -56,6 +56,7 @@ static void destroy_simulation(simulation_t *sim)
 {
     destroy_world(sim->world);
     destroy_screen(sim->screen);
+    sfClock_destroy(sim->delay_clock);
     sfClock_destroy(sim->clock);
 }
 
@@ -72,6 +73,9 @@ int run_simulation(tower_t **towers, aircraft_t **aircrafts)
         return EXIT_FAILURE;
     simulation.clock = sfClock_create();
     if (simulation.clock == NULL)
+        return EXIT_FAILURE;
+    simulation.delay_clock = sfClock_create();
+    if (simulation.delay_clock == NULL)
         return EXIT_FAILURE;
     if (run_simulation_loop(&simulation) == EXIT_FAILURE)
         return EXIT_FAILURE;
